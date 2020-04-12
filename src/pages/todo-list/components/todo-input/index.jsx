@@ -4,10 +4,8 @@ import { Input, Button } from 'antd'
 import css from './index.module.less'
 
 export default function TodoInput(props) {
-  console.log('todo_input', props)
   const inputRef = useRef()
   const { todoInputVal, todoInputChange, todoInputAddClick } = props;
-  console.log(todoInputVal)
   const handelOnChange = e => {
     todoInputChange(e.target.value);
   }

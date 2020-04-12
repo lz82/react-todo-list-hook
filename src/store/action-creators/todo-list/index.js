@@ -1,5 +1,10 @@
 import { todolistActionTypes  } from "@/store/action-types";
 
+export function queryTodoListCreator () {
+  return {
+    type: todolistActionTypes.QUERY_TODO_LIST
+  };
+}
 
 export function todoInputChangeCreator (val) {
   return {

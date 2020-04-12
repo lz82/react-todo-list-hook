@@ -23,7 +23,6 @@ const defaultState = {
 let index = 4
 
 export default function (state = defaultState, action) {
-  console.log(action)
   switch(action.type) {
     default:
       return state

@@ -26,6 +26,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onListInit: () => {
+      dispatch(todolistActionCreator.queryTodoListCreator());
+    },
     onItemClick: id => {
       dispatch(todolistActionCreator.toggleTodoStatusCreator(id));
     }
