@@ -4,10 +4,10 @@ import { Tabs } from 'antd'
 const { TabPane } = Tabs
 
 export default function TodoTab(props) {
-  const { filter, onChange } = props;
+  const { filter, onTabChange } = props;
 
   const handleChange = (key) => {
-    onChange(key);
+    onTabChange(key);
   };
   return (
     <div>

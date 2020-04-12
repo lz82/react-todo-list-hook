@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import TodoTab from "./components/todo-tab";
-import TodoInput from "./components/todo-input";
-import List from "./components/todo-list";
+import TodoTab from "./containers/todo-tab";
+import TodoInput from "./containers/todo-input";
+import List from "./containers/todo-list";
 
 import css from "./index.module.less";
-
+let index = 1;
 export default function TodoList() {
-  const [todoInput, setTodoInput] = useState("");
+  console.log('init')
   const [filter, setFilter] = useState("all");
-  let index = 1;
   const [list, setList] = useState([
     {
       id: index++,
@@ -27,66 +26,28 @@ export default function TodoList() {
       complete: false,
     },
   ]);
-  const [currentList, setCurrentList] = useState(list)
-
-  useEffect(() => {
-    switch (filter) {
-      case "all":
-        setCurrentList(list);
-        break;
-      case "todo":
-        setCurrentList(list.filter((item) => !item.complete));
-        break;
-      case "complete":
-        setCurrentList(list.filter((item) => item.complete));
-        break;
-      default:
-        setCurrentList(list);
-    }
-  }, [list, filter])
-
-  const handleInputChange = (val) => {
-    setTodoInput(val);
-  };
 
   const handleFilterChange = (val) => {
     setFilter(val);
   };
 
-  const handelAddClick = () => {
-    const newList = [
-      {
-        id: index++,
-        txt: todoInput,
-        complete: false,
-      },
-      ...list,
-    ];
-    setList(newList);
-    setTodoInput("");
-  };
-
   const handleItemClick = (id) => {
-    const newList = list.map((item) => 
+    const newList = list.map((item) =>
       item.id === id
         ? {
             ...item,
             complete: !item.complete,
           }
-        :item
+        : item
     );
-    setList(newList)
+    setList(newList);
   };
 
   return (
     <div className={css["todo-list-wrapper"]}>
-      <TodoInput
-        value={todoInput}
-        onChange={handleInputChange}
-        onClick={handelAddClick}
-      />
+      <TodoInput />
       <TodoTab filter={filter} onChange={handleFilterChange} />
-      <List list={currentList} onItemClick={handleItemClick} />
+      <List list={list} onItemClick={handleItemClick} />
     </div>
   );
 }

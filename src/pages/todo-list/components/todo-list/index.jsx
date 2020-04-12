@@ -10,7 +10,7 @@ export default function TodoList(props) {
   const handleItemClick = id => {
     onItemClick(id)
   }
-
+  console.log('list...')
   return (
     <div className={css["list-wrapper"]}>
       <List
