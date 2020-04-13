@@ -1,66 +1,58 @@
-import { todolistActionTypes  } from "@/store/action-types";
-import { fromJS } from 'immutable'
+import { todolistActionTypes } from "@/store/action-types";
+import { fromJS } from "immutable";
 
 const defaultState = fromJS({
   isLoading: false,
   todoInput: "",
   list: [],
-  filter: 'all',
-  errMsg: ''
+  filter: "all",
+  errMsg: "",
 });
-let index = 4
+let index = 4;
 
 export default function (state = defaultState, action) {
-  switch(action.type) {
+  switch (action.type) {
     default:
-      return state
+      return state;
     case todolistActionTypes.TODO_INPUT_CHANGE:
-      return fromJS({
-        ...state.toJS(),
-        todoInput: action.payload
-      })
+      return state.set("todoInput", action.payload);
     case todolistActionTypes.TODO_INPUT_ADD:
-      console.log(state)
-      return fromJS({
-        ...state.toJS(),
-        todoInput: "",
-        list: fromJS([
-          {
+      return state.merge({
+        list: state.get("list").unshift(
+          fromJS({
             id: index++,
-            txt: state.get('todoInput'),
+            txt: state.get("todoInput"),
             complete: false,
-          },
-          ...state.get('list').toJS(),
-        ]),
+          })
+        ),
+        todoInput: "",
       });
     case todolistActionTypes.TOGGLE_TODO_STATUS:
-      return fromJS({
-        ...state.toJS(),
-        list: state.get('list').toJS().map(item => item.id === action.payload ? {...item, complete: !item.complete} : item)
-      })
+      return state.set(
+        "list",
+        state
+          .get("list")
+          .map((item) =>
+            item.get("id") === action.payload
+              ? item.set("complete", !item.get("complete"))
+              : item
+          )
+      );
     case todolistActionTypes.CHANGE_TODO_TAB:
-      return fromJS({
-        ...state.toJS(),
-        filter: action.payload
-      })
+      return state.set('filter', action.payload)
     case todolistActionTypes.QUERY_TODO_LIST_START:
-      return fromJS({
-        ...state.toJS(),
-        isLoading: true
-      })
+      return state.set('isLoading', true)
     case todolistActionTypes.QUERY_TODO_LIST_SUCCESS:
-      return fromJS({
-        ...state.toJS(),
+      return state.merge({
         isLoading: false,
-        list: action.payload,
-        errMsg: ''
+        errMsg: '',
+        list: fromJS(action.payload)
       })
     case todolistActionTypes.QUERY_TODO_LIST_FAILURE:
-      return fromJS({
-        ...state.toJS(),
+      return state.merge({
         isLoading: false,
-        list: [],
+        list: fromJS([]),
         errMsg: action.payload
-      })
+      });
   }
 }
