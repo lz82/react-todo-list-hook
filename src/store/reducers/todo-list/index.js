@@ -3,22 +3,9 @@ import { todolistActionTypes  } from "@/store/action-types";
 const defaultState = {
   isLoading: false,
   todoInput: "",
-  list: [{
-      id: 1,
-      txt: "吃饭",
-      complete: true,
-    },
-    {
-      id: 2,
-      txt: "睡觉",
-      complete: false,
-    },
-    {
-      id: 3,
-      txt: "打豆豆",
-      complete: false,
-    }],
-  filter: 'all'
+  list: [],
+  filter: 'all',
+  errMsg: ''
 };
 let index = 4
 
@@ -53,6 +40,25 @@ export default function (state = defaultState, action) {
       return {
         ...state,
         filter: action.payload
+      }
+    case todolistActionTypes.QUERY_TODO_LIST_START:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case todolistActionTypes.QUERY_TODO_LIST_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        list: action.payload,
+        errMsg: ''
+      }
+    case todolistActionTypes.QUERY_TODO_LIST_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        list: [],
+        errMsg: action.payload
       }
   }
 }

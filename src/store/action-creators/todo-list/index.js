@@ -1,10 +1,37 @@
 import { todolistActionTypes } from "@/store/action-types";
 import axios from 'axios'
 
+const queryTodoListStart = () => {
+  return {
+    type: todolistActionTypes.QUERY_TODO_LIST_START
+  }
+}
+
+const queryTodoListSuccess = data => {
+  return {
+    type: todolistActionTypes.QUERY_TODO_LIST_SUCCESS,
+    payload: data
+  }
+}
+
+const queryTodoListFailure = msg => {
+  return {
+    type: todolistActionTypes.QUERY_TODO_LIST_FAILURE,
+    payload: msg
+  }
+}
+
+
+
 export function queryTodoListCreator() {
   return async (dispatch) => {
-    const res = await axios.get('/mock/list.json')
-    console.log(res.data)
+    dispatch(queryTodoListStart())
+    try {
+      const res = await axios.get('/mock/list.json')
+      dispatch(queryTodoListSuccess(res.data))
+    } catch (err) {
+      dispatch(queryTodoListFailure(err.toString()))
+    }
   };
 }
 

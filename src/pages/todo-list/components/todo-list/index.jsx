@@ -5,7 +5,7 @@ import TodoItem from '../todo-item'
 import css from './index.module.less'
 
 export default function TodoList(props) {
-  const { list, onItemClick, onListInit } = props;
+  const { list, isLoading, onItemClick, onListInit } = props;
 
   useEffect(() => {
     onListInit()
@@ -19,6 +19,7 @@ export default function TodoList(props) {
       <List
         dataSource={list}
         bordered
+        loading={isLoading}
         renderItem={(item) => (
           <List.Item>
             <TodoItem item={item} onClick={handleItemClick} />

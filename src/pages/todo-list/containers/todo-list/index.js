@@ -20,7 +20,8 @@ const mapStateToProps = state => {
       return list
   }
   return {
-    list: ret
+    list: ret,
+    isLoading: state.todolist.isLoading
   };
 }
 
