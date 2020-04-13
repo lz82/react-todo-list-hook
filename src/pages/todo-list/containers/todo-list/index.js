@@ -1,11 +1,16 @@
 import { connect } from 'react-redux'
 
+import { todolistSelector } from '@/store/selectors'
+
 import view from '../../components/todo-list'
 import { todolistActionCreator } from "@/store/action-creators";
 
 const mapStateToProps = state => {
-  const list = state.getIn(['todolist', 'list']).toJS()
-  const filter = state.getIn(['todolist', 'filter'])
+
+  const list = todolistSelector.getTodoList(state)
+  const filter = todolistSelector.getTodoFilter(state)
+
+
   let ret = []
   switch(filter) {
     case 'all':
@@ -22,7 +27,7 @@ const mapStateToProps = state => {
   }
   return {
     list: ret,
-    isLoading: state.getIn(['todolist', 'isLoading'])
+    isLoading: todolistSelector.getLoadingStatus(state)
   };
 }
 

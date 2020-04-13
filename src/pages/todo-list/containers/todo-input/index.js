@@ -4,9 +4,11 @@ import { connect } from 'react-redux'
 
 import { todolistActionCreator } from '@/store/action-creators'
 
+import { todolistSelector } from '@/store/selectors'
+
 const mapStateToProps = state => {
   return {
-    todoInputVal: state.getIn(['todolist', 'todoInput'])
+    todoInputVal: todolistSelector.getTodoInputVal(state)
   }
 }
 

@@ -4,9 +4,11 @@ import view from '../../components/todo-tab'
 
 import { todolistActionCreator } from "@/store/action-creators";
 
+import { todolistSelector } from '@/store/selectors'
+
 const mapStateToProps = state => {
   return {
-    filter: state.getIn(['todolist', 'filter'])
+    filter: todolistSelector.getTodoFilter(state)
   }
 }
 
