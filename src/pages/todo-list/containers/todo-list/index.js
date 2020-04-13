@@ -4,7 +4,8 @@ import view from '../../components/todo-list'
 import { todolistActionCreator } from "@/store/action-creators";
 
 const mapStateToProps = state => {
-  const {list, filter} = state.todolist
+  const list = state.getIn(['todolist', 'list']).toJS()
+  const filter = state.getIn(['todolist', 'filter'])
   let ret = []
   switch(filter) {
     case 'all':
@@ -21,7 +22,7 @@ const mapStateToProps = state => {
   }
   return {
     list: ret,
-    isLoading: state.todolist.isLoading
+    isLoading: state.getIn(['todolist', 'isLoading'])
   };
 }
 

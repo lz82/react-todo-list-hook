@@ -6,7 +6,7 @@ import { todolistActionCreator } from '@/store/action-creators'
 
 const mapStateToProps = state => {
   return {
-    todoInputVal: state.todolist.todoInput
+    todoInputVal: state.getIn(['todolist', 'todoInput'])
   }
 }
 
