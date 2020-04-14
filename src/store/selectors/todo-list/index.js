@@ -3,7 +3,7 @@ export const getTodoInputVal = state => {
 }
 
 export const getTodoList = state => {
-  return state.getIn(['todolist', 'list']).toJS()
+  return state.getIn(['todolist', 'list'])
 }
 
 export const getTodoFilter = state => {

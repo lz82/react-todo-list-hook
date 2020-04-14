@@ -6,7 +6,7 @@ import css from './index.module.less'
 
 export default function TodoList(props) {
   const { list, isLoading, onItemClick, onListInit } = props;
-
+  console.log('list init...')
   useEffect(() => {
     onListInit()
   }, [onListInit])

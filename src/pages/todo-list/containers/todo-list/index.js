@@ -5,6 +5,8 @@ import { todolistSelector } from '@/store/selectors'
 import view from '../../components/todo-list'
 import { todolistActionCreator } from "@/store/action-creators";
 
+import { ToJS } from "@/components/hoc/to-js";
+
 const mapStateToProps = state => {
 
   const list = todolistSelector.getTodoList(state)
@@ -42,4 +44,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(view);
+export default connect(mapStateToProps, mapDispatchToProps)(ToJS(view));
