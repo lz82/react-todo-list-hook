@@ -23,9 +23,9 @@ export const getTodoList = createSelector(
       case "all":
         return list;
       case "todo":
-        return list.filter((item) => !item.complete);
+        return list.filter((item) => !item.get('complete'));
       case "complete":
-        return list.filter((item) => item.complete);
+        return list.filter((item) => item.get('complete'));
       default:
         return list;
     }
